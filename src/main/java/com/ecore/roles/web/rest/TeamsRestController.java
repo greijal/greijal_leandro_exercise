@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -29,6 +30,7 @@ public class TeamsRestController  {
                 .status(200)
                 .body(teamsService.getTeams().stream()
                         .map(TeamDto::fromModel)
+                        .filter(Objects::nonNull)
                         .collect(Collectors.toList()));
     }
 
@@ -37,9 +39,18 @@ public class TeamsRestController  {
             produces = {"application/json"})
     public ResponseEntity<TeamDto> getTeam(
             @PathVariable UUID teamId) {
+
+       var dataModel = fromModel(teamsService.getTeam(teamId));
+
+       if(dataModel == null){
+           return ResponseEntity
+                   .notFound()
+                   .build();
+       }
+
         return ResponseEntity
                 .status(200)
-                .body(fromModel(teamsService.getTeam(teamId)));
+                .body(dataModel);
     }
 
 }

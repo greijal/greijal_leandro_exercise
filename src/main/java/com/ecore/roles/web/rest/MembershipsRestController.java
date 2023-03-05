@@ -39,12 +39,13 @@ public class MembershipsRestController{
             @RequestParam UUID roleId) {
 
         List<Membership> memberships = membershipsService.getMemberships(roleId);
-
         List<MembershipDto> newMembershipDto = new ArrayList<>();
 
         for (Membership membership : memberships) {
             MembershipDto membershipDto = fromModel(membership);
-            newMembershipDto.add(membershipDto);
+            if(membershipDto != null){
+                newMembershipDto.add(membershipDto);
+            }
         }
 
         return ResponseEntity

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -29,6 +30,7 @@ public class UsersRestController  {
                 .status(200)
                 .body(usersService.getUsers().stream()
                         .map(UserDto::fromModel)
+                        .filter(Objects::nonNull)
                         .collect(Collectors.toList()));
     }
 
@@ -37,8 +39,15 @@ public class UsersRestController  {
             produces = {"application/json"})
     public ResponseEntity<UserDto> getUser(
             @PathVariable UUID userId) {
+
+       var dataModel = fromModel(usersService.getUser(userId));
+
+       if(dataModel == null ){
+           return ResponseEntity.notFound().build();
+       }
+
         return ResponseEntity
                 .status(200)
-                .body(fromModel(usersService.getUser(userId)));
+                .body(dataModel);
     }
 }

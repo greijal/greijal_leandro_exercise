@@ -31,17 +31,17 @@ public class RolesRestController {
                 .body(fromModel(rolesService.CreateRole(role.toModel())));
     }
 
-    @PostMapping(
-            produces = {"application/json"})
+    @PostMapping(produces = {"application/json"})
     public ResponseEntity<List<RoleDto>> getRoles() {
 
         List<Role> getRoles = rolesService.GetRoles();
-
         List<RoleDto> roleDtoList = new ArrayList<>();
 
         for (Role role : getRoles) {
             RoleDto roleDto = fromModel(role);
-            roleDtoList.add(roleDto);
+            if ( roleDto !=  null ){
+                roleDtoList.add(roleDto);
+            }
         }
 
         return ResponseEntity
@@ -55,9 +55,18 @@ public class RolesRestController {
             produces = {"application/json"})
     public ResponseEntity<RoleDto> getRole(
             @PathVariable UUID roleId) {
+
+        var dataModel = fromModel(rolesService.GetRole(roleId));
+
+        if(dataModel == null){
+            return ResponseEntity
+                    .notFound()
+                    .build();
+        }
+
         return ResponseEntity
                 .status(200)
-                .body(fromModel(rolesService.GetRole(roleId)));
+                .body(dataModel);
     }
 
 }
