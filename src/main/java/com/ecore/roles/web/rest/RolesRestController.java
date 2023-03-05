@@ -2,7 +2,6 @@ package com.ecore.roles.web.rest;
 
 import com.ecore.roles.model.Role;
 import com.ecore.roles.service.RolesService;
-import com.ecore.roles.web.RolesApi;
 import com.ecore.roles.web.dto.RoleDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +17,10 @@ import static com.ecore.roles.web.dto.RoleDto.fromModel;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/v1/roles")
-public class RolesRestController implements RolesApi {
+public class RolesRestController {
 
     private final RolesService rolesService;
 
-    @Override
     @PostMapping(
             consumes = {"application/json"},
             produces = {"application/json"})
@@ -33,7 +31,6 @@ public class RolesRestController implements RolesApi {
                 .body(fromModel(rolesService.CreateRole(role.toModel())));
     }
 
-    @Override
     @PostMapping(
             produces = {"application/json"})
     public ResponseEntity<List<RoleDto>> getRoles() {
@@ -52,7 +49,7 @@ public class RolesRestController implements RolesApi {
                 .body(roleDtoList);
     }
 
-    @Override
+
     @PostMapping(
             path = "/{roleId}",
             produces = {"application/json"})
