@@ -34,7 +34,7 @@ public class RolesRestController {
     @PostMapping(produces = {"application/json"})
     public ResponseEntity<List<RoleDto>> getRoles() {
 
-        List<Role> getRoles = rolesService.GetRoles();
+        List<Role> getRoles = rolesService.getRoles();
         List<RoleDto> roleDtoList = new ArrayList<>();
 
         for (Role role : getRoles) {

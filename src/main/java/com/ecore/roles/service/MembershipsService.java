@@ -32,21 +32,21 @@ public class MembershipsService {
         this.roleRepository = roleRepository;
     }
 
-    public Membership assignRoleToMembership(@NonNull Membership m) {
+    public Membership assignRoleToMembership(@NonNull Membership membership) {
 
-        UUID roleId = ofNullable(m.getRole()).map(Role::getId)
+        UUID roleId = ofNullable(membership.getRole()).map(Role::getId)
                 .orElseThrow(() -> new InvalidArgumentException(Role.class));
 
-        if (membershipRepository.findByUserIdAndTeamId(m.getUserId(), m.getTeamId())
+        if (membershipRepository.findByUserIdAndTeamId(membership.getUserId(), membership.getTeamId())
                 .isPresent()) {
             throw new ResourceExistsException(Membership.class);
         }
 
         roleRepository.findById(roleId).orElseThrow(() -> new ResourceNotFoundException(Role.class, roleId));
-        return membershipRepository.save(m);
+        return membershipRepository.save(membership);
     }
 
-    public List<Membership> getMemberships(@NonNull UUID rid) {
-        return membershipRepository.findByRoleId(rid);
+    public List<Membership> getMemberships(@NonNull UUID id) {
+        return membershipRepository.findByRoleId(id);
     }
 }
