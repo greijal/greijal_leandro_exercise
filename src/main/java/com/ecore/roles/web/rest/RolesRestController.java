@@ -1,7 +1,7 @@
 package com.ecore.roles.web.rest;
 
 import com.ecore.roles.model.Role;
-import com.ecore.roles.service.RolesService;
+import com.ecore.roles.service.impl.RolesService;
 import com.ecore.roles.web.dto.RoleDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

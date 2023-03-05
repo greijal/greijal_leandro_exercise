@@ -5,7 +5,9 @@ import com.ecore.roles.exception.ResourceExistsException;
 import com.ecore.roles.model.Membership;
 import com.ecore.roles.repository.MembershipRepository;
 import com.ecore.roles.repository.RoleRepository;
-import com.ecore.roles.service.impl.MembershipsServiceImpl;
+import com.ecore.roles.service.impl.MembershipsService;
+import com.ecore.roles.service.impl.TeamsService;
+import com.ecore.roles.service.impl.UsersService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,7 +30,7 @@ import static org.mockito.Mockito.verify;
 class MembershipsServiceTest {
 
     @InjectMocks
-    private MembershipsServiceImpl membershipsService;
+    private MembershipsService membershipsService;
     @Mock
     private MembershipRepository membershipRepository;
     @Mock

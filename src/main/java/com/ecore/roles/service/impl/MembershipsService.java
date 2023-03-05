@@ -7,7 +7,6 @@ import com.ecore.roles.model.Membership;
 import com.ecore.roles.model.Role;
 import com.ecore.roles.repository.MembershipRepository;
 import com.ecore.roles.repository.RoleRepository;
-import com.ecore.roles.service.MembershipsService;
 import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +19,19 @@ import static java.util.Optional.ofNullable;
 
 @Log4j2
 @Service
-public class MembershipsServiceImpl implements MembershipsService {
+public class MembershipsService {
 
     private final MembershipRepository membershipRepository;
     private final RoleRepository roleRepository;
 
     @Autowired
-    public MembershipsServiceImpl(
+    public MembershipsService(
             MembershipRepository membershipRepository,
             RoleRepository roleRepository) {
         this.membershipRepository = membershipRepository;
         this.roleRepository = roleRepository;
     }
 
-    @Override
     public Membership assignRoleToMembership(@NonNull Membership m) {
 
         UUID roleId = ofNullable(m.getRole()).map(Role::getId)
@@ -48,7 +46,6 @@ public class MembershipsServiceImpl implements MembershipsService {
         return membershipRepository.save(m);
     }
 
-    @Override
     public List<Membership> getMemberships(@NonNull UUID rid) {
         return membershipRepository.findByRoleId(rid);
     }
