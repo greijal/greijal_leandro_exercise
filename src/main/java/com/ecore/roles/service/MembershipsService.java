@@ -1,4 +1,4 @@
-package com.ecore.roles.service.impl;
+package com.ecore.roles.service;
 
 import com.ecore.roles.exception.InvalidArgumentException;
 import com.ecore.roles.exception.ResourceExistsException;

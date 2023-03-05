@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 class TeamsServiceTest {
 
     @InjectMocks
-    private com.ecore.roles.service.impl.TeamsService TeamsService;
+    private com.ecore.roles.service.TeamsService TeamsService;
     @Mock
     private TeamsClient TeamsClient;
 

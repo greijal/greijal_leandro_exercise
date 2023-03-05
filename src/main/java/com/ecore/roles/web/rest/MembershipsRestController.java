@@ -1,7 +1,7 @@
 package com.ecore.roles.web.rest;
 
 import com.ecore.roles.model.Membership;
-import com.ecore.roles.service.impl.MembershipsService;
+import com.ecore.roles.service.MembershipsService;
 import com.ecore.roles.web.dto.MembershipDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

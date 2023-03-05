@@ -1,7 +1,7 @@
 package com.ecore.roles.web.rest;
 
 import com.ecore.roles.model.Role;
-import com.ecore.roles.service.impl.RolesService;
+import com.ecore.roles.service.RolesService;
 import com.ecore.roles.web.dto.RoleDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +28,7 @@ public class RolesRestController {
             @Valid @RequestBody RoleDto role) {
         return ResponseEntity
                 .status(200)
-                .body(fromModel(rolesService.CreateRole(role.toModel())));
+                .body(fromModel(rolesService.createRole(role.toModel())));
     }
 
     @PostMapping(produces = {"application/json"})
@@ -56,7 +56,7 @@ public class RolesRestController {
     public ResponseEntity<RoleDto> getRole(
             @PathVariable UUID roleId) {
 
-        var dataModel = fromModel(rolesService.GetRole(roleId));
+        var dataModel = fromModel(rolesService.getRole(roleId));
 
         if(dataModel == null){
             return ResponseEntity
